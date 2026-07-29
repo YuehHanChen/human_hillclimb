@@ -5,7 +5,7 @@ THE CONTRACT (checked before training, AST-only; your code is never executed by 
   - a top-level `def run_experiment(config) -> {"model_path": <dir>}`
 
 `run_experiment` TRAINS the assigned model and returns the directory of the trained model.
-It does NOT score the model and never sees the benchmark , you get scores back from the API.
+It does NOT score the model and never sees the benchmark; you get scores back from the API.
 
 WHAT YOU GET IN THE TRAINING SANDBOX:
   - a GPU, and torch / transformers / trl / peft / datasets installed
@@ -29,7 +29,7 @@ from typing import Any
 
 @dataclass
 class MethodConfig:
-    base_model: str = "Qwen/Qwen3.5-2B"   # OVERRIDDEN by the system to your assigned target , read, don't hardcode
+    base_model: str = "Qwen/Qwen3.5-2B"   # OVERRIDDEN by the system to your assigned target; read it, do not hardcode
     output_dir: str = "/root/out/model"   # where you write the trained model (the sandbox provides /root/out)
     seed: int = 42
     # --- example hyperparameters (edit / add your own) ---
@@ -61,7 +61,7 @@ def load_base_model_and_tokenizer(model_id: str):
 
 def _load_allowed_data(tok, n: int, max_len: int):
     """EXAMPLE allowed data: the 'chosen' (helpful + harmless) turns from Anthropic/hh-rlhf, rendered with the
-    model's chat template. This is a legitimate open corpus. REPLACE with your own data strategy , the data is
+    model's chat template. This is a legitimate open corpus. REPLACE with your own data strategy; the data is
     where most of the signal is. Just keep it ALLOWED (no benchmark/eval/held-out content)."""
     from datasets import load_dataset
     ds = load_dataset("Anthropic/hh-rlhf", split="train").shuffle(seed=42).select(range(min(n, 10000)))
@@ -86,7 +86,7 @@ def run_experiment(config: MethodConfig) -> dict[str, Any]:
     from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling
 
     os.makedirs(config.output_dir, exist_ok=True)
-    model, tok = load_base_model_and_tokenizer(config.base_model)   # eager attn , safe for all archs
+    model, tok = load_base_model_and_tokenizer(config.base_model)   # eager attn: safe for all architectures
 
     # ==================================================================================================
     # YOUR METHOD HERE. This example is a plain safety-SFT on hh-rlhf 'chosen'. Replace with your idea:
@@ -116,7 +116,7 @@ def run_experiment(config: MethodConfig) -> dict[str, Any]:
 
 
 if __name__ == "__main__":
-    # Local sanity check of the contract only (does NOT train , that happens in the sandbox after you submit).
+    # Local sanity check of the contract only (does NOT train; that happens in the sandbox after you submit).
     import dataclasses
     assert dataclasses.is_dataclass(MethodConfig) and hasattr(MethodConfig(), "base_model")
     assert callable(run_experiment)

@@ -1,11 +1,11 @@
-"""EXAMPLE method , the safety-SFT baseline described in examples/paper.json.
+"""EXAMPLE method: the safety-SFT baseline described in examples/paper.json.
 
 A complete, valid, submittable run.py. Pair it with examples/paper.json:
     python3 ../aab_client.py submit --name sft_baseline --code run.py --paper paper.json
 
 Implements the contract: `class MethodConfig` + `def run_experiment(config) -> {"model_path": <dir>}`.
 Trains the assigned target model with SFT on Anthropic/hh-rlhf 'chosen' responses (an allowed open corpus),
-then saves the full merged model + tokenizer. This is a reference baseline , build something better.
+then saves the full merged model + tokenizer. This is a reference baseline; build something better.
 """
 from __future__ import annotations
 from dataclasses import dataclass

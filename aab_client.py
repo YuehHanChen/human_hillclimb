@@ -135,7 +135,7 @@ def cmd_submit(args):
     if st != 200:
         print("ERROR %s: %s" % (st, r.get("detail") or r)); return
     if not r.get("approved"):
-        print("REJECTED by the monitor , fix and resubmit. Reasons:")
+        print("REJECTED by the monitor. Fix the issues below and resubmit. Reasons:")
         for v in (r.get("violations") or []):
             print("  [%s] %s" % (v.get("desideratum"), v.get("explanation") or v.get("rationale")))
         if r.get("error"):
@@ -143,7 +143,7 @@ def cmd_submit(args):
         return
     run_id = r.get("run_id")
     print("APPROVED. run_id = %s" % run_id)
-    print("training + evaluating (evaluation is off your budget clock; this can take a while) ...")
+    print("training now (this is on your clock), then evaluating (which is not); this can take a while ...")
     if args.no_wait:
         print("not waiting (--no-wait). Poll with:  python3 aab_client.py status %s" % run_id); return
 
@@ -156,11 +156,14 @@ def cmd_submit(args):
         phase = r.get("status")
         if phase != last:
             print("  [%s] %s" % (time.strftime("%H:%M:%S"), phase))
+            if phase == "evaluating":
+                print("  >> PAUSE your own timer now: evaluation does not count toward your 12 hours (README section 8).")
             last = phase
         if phase in ("done", "train_failed", "eval_failed", "rejected", "cancelled"):
             print("=== %s ===" % phase.upper())
             if phase == "done":
                 _print_scores(r)
+                print(">> Evaluation is done. Resume your own timer whenever you get back to work.")
                 print("review all your results with:  python3 aab_client.py findings")
             elif phase == "train_failed":
                 print("--- FULL TRACEBACK ---\n" + (r.get("traceback") or ""))
