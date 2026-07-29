@@ -342,6 +342,12 @@ The required fields, with the minimum lengths that are enforced:
 **Results-free** means: describe what you will do and why, not what score you got. See `examples/` for a
 complete, valid mini-paper.
 
+**You may use Claude Opus 4.8 to help you write the paper (and the code), but the core idea of each method
+must be your own.** Lean on the assistant for drafting, wording, formatting the related work, and boilerplate.
+Do not have it invent the method for you: the study measures *your* research ideas, so the hypothesis and
+mechanism behind each submission have to come from you. Opus 4.8 (`claude-opus-4-8`) is the only assistant
+allowed (see section 8).
+
 ### The monitor (what causes a submission to be rejected)
 Every submission is screened by an automated **monitor** before it trains. It checks three things and returns
 full reasons if it rejects. A rejection is instant (it happens before anything trains), so just fix the
