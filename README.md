@@ -189,19 +189,33 @@ Illustrative shape (the numbers are made up):
     "headline_pct": 12.4,
     "petri_score": 0.71,
     "passes_filter": true,
-    "closed_pct": {"deception": 18.2, "sycophancy": 9.7, "jailbreak_refusal": 14.0, "...": "..."},
+    "closed_pct": {
+      "deception": 18.2, "sycophancy": 9.7, "jailbreak_refusal": 14.0, "power_seeking": 11.5,
+      "reward_hacking": 6.3, "self_preservation": 8.8, "oversight_subversion": 7.1,
+      "concealing_uncertainty": 4.2, "sandbagging": 12.6, "excessive_refusal": 0.0
+    },
     "per_benchmark": {
-      "petri_deception":      {"mean": 0.78, "ci_low": 0.72, "ci_high": 0.84},
-      "petri_sycophancy":     {"mean": 0.65, "ci_low": 0.58, "ci_high": 0.72},
-      "petri_coherence":      {"mean": 0.97, "ci_low": 0.95, "ci_high": 0.99},
-      "petri_overrefusal":    {"mean": 0.93, "ci_low": 0.90, "ci_high": 0.96},
-      "petri_eval_awareness": {"mean": 0.99, "ci_low": 0.98, "ci_high": 1.00},
-      "mmlu":  {"mean": 0.58, "ci_low": 0.55, "ci_high": 0.61, "baseline": 0.57},
-      "gsm8k": {"mean": 0.41, "ci_low": 0.37, "ci_high": 0.45, "baseline": 0.41},
-      "ifeval":{"mean": 0.44, "ci_low": 0.40, "ci_high": 0.48, "baseline": 0.43}
+      "petri_deception":              {"mean": 0.78, "ci_low": 0.72, "ci_high": 0.84},
+      "petri_sycophancy":             {"mean": 0.65, "ci_low": 0.58, "ci_high": 0.72},
+      "petri_jailbreak_refusal":      {"mean": 0.81, "ci_low": 0.75, "ci_high": 0.87},
+      "petri_power_seeking":          {"mean": 0.74, "ci_low": 0.68, "ci_high": 0.80},
+      "petri_reward_hacking":         {"mean": 0.69, "ci_low": 0.62, "ci_high": 0.76},
+      "petri_self_preservation":      {"mean": 0.72, "ci_low": 0.65, "ci_high": 0.79},
+      "petri_oversight_subversion":   {"mean": 0.70, "ci_low": 0.63, "ci_high": 0.77},
+      "petri_concealing_uncertainty": {"mean": 0.63, "ci_low": 0.56, "ci_high": 0.70},
+      "petri_sandbagging":            {"mean": 0.76, "ci_low": 0.70, "ci_high": 0.82},
+      "petri_excessive_refusal":      {"mean": 0.96, "ci_low": 0.93, "ci_high": 0.99},
+      "petri_coherence":              {"mean": 0.97, "ci_low": 0.95, "ci_high": 0.99},
+      "petri_overrefusal":            {"mean": 0.93, "ci_low": 0.90, "ci_high": 0.96},
+      "petri_eval_awareness":         {"mean": 0.99, "ci_low": 0.98, "ci_high": 1.00},
+      "mmlu":   {"mean": 0.58, "ci_low": 0.55, "ci_high": 0.61, "baseline": 0.57},
+      "gsm8k":  {"mean": 0.41, "ci_low": 0.37, "ci_high": 0.45, "baseline": 0.41},
+      "ifeval": {"mean": 0.44, "ci_low": 0.40, "ci_high": 0.48, "baseline": 0.43}
     },
     "filter_detail": {
       "mmlu":                 {"mean": 0.58, "floor": 0.57, "passed": true},
+      "gsm8k":                {"mean": 0.41, "floor": 0.41, "passed": true},
+      "ifeval":               {"mean": 0.44, "floor": 0.43, "passed": true},
       "petri_coherence":      {"mean": 0.97, "floor": 0.85, "passed": true},
       "petri_overrefusal":    {"mean": 0.93, "floor": 0.90, "passed": true},
       "petri_eval_awareness": {"mean": 0.99, "floor": 0.95, "passed": true}
@@ -209,6 +223,9 @@ Illustrative shape (the numbers are made up):
   }
 }
 ```
+All 10 scored dimensions appear under both `closed_pct` and `per_benchmark` (as `petri_<dimension>`). In this
+example `excessive_refusal` shows `0.0` closed because its base safety is already near the ceiling, so it is
+dropped from the headline (but still gated), exactly as described above.
 
 ---
 
