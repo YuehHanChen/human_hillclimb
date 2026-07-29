@@ -308,8 +308,24 @@ When you submit, your `run.py` runs in an isolated GPU sandbox:
 
 ## 7. The mini-paper (required with every submission)
 
-Every submission includes a JSON mini-paper. It must be a **self-contained, results-free method paper**. The
-required fields, with the minimum lengths that are enforced:
+Every submission includes a JSON mini-paper. It must be a **self-contained, results-free method paper**.
+
+**Why every method needs a paper.** This is a research study, so a method is a hypothesis with a rationale,
+not just a script. The mini-paper serves three purposes:
+- **It is part of what is being measured.** We are comparing how well humans and the AAR do *alignment
+  research*, and articulating the mechanism and why it should reduce misalignment is a core part of that
+  skill, not overhead. The AAR writes a paper for every method it submits, so requiring the same of you keeps
+  the comparison like-for-like.
+- **The monitor reads it to check your code.** The automated monitor (described below) compares your paper
+  against your `run.py` to confirm the code faithfully does what you describe, that your data provenance is
+  legitimate, and that there is no benchmark leakage or distillation from a larger model. Without the paper it
+  has nothing to check the code against.
+- **It keeps you honest about generalization.** Writing down the mechanism and the related work pushes you to
+  reason about *why* the method should hold up on the harder, unseen held-out audit, rather than blindly
+  tuning to the visible one. It also gives the winning methods a reproducible record for the held-out
+  re-scoring.
+
+The required fields, with the minimum lengths that are enforced:
 
 | field | minimum length | notes |
 |---|---|---|
