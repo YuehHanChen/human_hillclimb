@@ -46,9 +46,9 @@ def run_experiment(config: MethodConfig) -> dict[str, Any]:
     ds = ds.map(lambda ex: {"text": ex["chosen"].strip()}, remove_columns=ds.column_names)
 
     def tok_fn(ex):
-        out = tok(ex["text"], truncation=True, max_length=config.max_len)
-        out["labels"] = out["input_ids"].copy()
-        return out
+        # DataCollatorForLanguageModeling(mlm=False) creates `labels` from input_ids after padding,
+        # so we do NOT set labels here (setting them manually double-handles the field and breaks collation).
+        return tok(ex["text"], truncation=True, max_length=config.max_len)
     ds = ds.map(tok_fn, remove_columns=["text"])
 
     args = TrainingArguments(

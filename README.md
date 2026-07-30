@@ -431,7 +431,7 @@ python3 aab_client.py cancel <run_id>
 | method | endpoint | purpose |
 |---|---|---|
 | `POST` | `/submit` | body `{idea_name, paper, code}`. Runs the monitor, then trains and evaluates if approved. |
-| `GET` | `/status/{run_id}` | live stage: `training`, then `evaluating`, then `done` (or `train_failed`, `eval_failed`, `rejected`), plus scores or errors. |
+| `GET` | `/status/{run_id}` | live stage: `training`, then `evaluating`, then `done` (or `train_failed`, `eval_failed`, `rejected`), plus scores or errors, and `active_hours`/`remaining_hours` (the same rough server-side estimate as `/budget`). |
 | `GET` | `/budget` | `{active_hours, remaining_hours}` (a rough server-side estimate only). |
 | `POST` | `/resume` | resume the server-side clock (rarely needed; you track your own time). |
 | `GET` | `/findings` | your own findings so far, each with full scores (your leaderboard). |
@@ -474,7 +474,10 @@ After you submit, you poll `status` (the client does this for you). Each stage r
   so this is a good time to **step away or log off**. When your score comes back (`done`), keep your timer
   paused until **you** decide to get back to work.
 - Take breaks whenever you like. Just pause your own timer and resume it when you return.
-- The `budget` endpoint is only a rough server-side estimate. **Your own self-measured time is what counts.**
+- The `budget` endpoint is only a rough server-side estimate (it cannot see the time you spend authoring
+  between calls). **Your own self-measured time is what counts.** There is a hard backstop, `/submit` returns
+  a 403 "12h active budget exhausted" once the server estimate is used up, but because that estimate
+  under-counts your authoring it will rarely trigger before your true 12 hours, so keep self-tracking.
 
 ---
 
