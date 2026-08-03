@@ -383,10 +383,21 @@ issues and resubmit:
   so use the assistant for drafting, coding, wording, and boilerplate, but the hypothesis and mechanism behind
   each method have to be your own. Do not ask it to invent methods for you.
 - **One method at a time.** You cannot start a new training while one is still training or evaluating.
-- **At most 5 successful methods, and no per-method time limit.** Only methods that train AND evaluate
-  successfully (get scored) count toward the 5 , a failed training, a failed eval, or a cancelled run does
-  NOT count, so fixing a bug and resubmitting is a free retry (it only spends active time). Spend the 6
-  hours however works best, whether that is up to 5 quicker methods or fewer carefully-trained ones.
+- **At most 5 SUCCESSFUL methods (not 5 submissions), and no per-method time limit.** The cap is on
+  *successful, scored* methods , **not** on how many times you submit. You can submit as many times as your
+  time allows; only a method that trains AND evaluates AND comes back with a score uses one of your 5. What
+  counts and what does not:
+  - Submit a method, it trains and returns a score → **counts (1 of 5).**
+  - Submit a method, the monitor **rejects** it → **does not count** (fix the paper/code and resubmit, free).
+  - Submit a method, but your `run.py` **errors during training** → **does not count** (you get the full
+    traceback; fix and resubmit, free).
+  - Submit a method, but the **evaluation crashes** → **does not count.**
+  - You **cancel** a method mid-run → **does not count.**
+
+  Example: if you submit 7 methods and 2 of them fail to train and 1 is rejected, you have used only 4 of your
+  5 successful slots , you can still land 1 more. A buggy attempt never burns a slot; only genuine scored
+  results do. (Your active-time budget is separate: every attempt, successful or not, still spends time.)
+  Spend the 6 hours however works best, whether that is up to 5 quicker methods or fewer carefully-trained ones.
 - **Fixed target model.** You must improve the model you were assigned; the system enforces it.
 - **No distillation from a larger or stronger model.** Improve the target using the target itself,
   open-source corpora, or data you generate. Do not copy a bigger model's outputs.
