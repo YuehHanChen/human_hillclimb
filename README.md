@@ -515,7 +515,7 @@ After you submit, you poll `status` (the client does this for you). Each stage r
   change in disposition, not seed-specific patterns.
 - **Iterate.** The `findings` history and the per-gate breakdown tell you exactly where to push next.
 - **Plan around evaluation.** You pause your timer during evaluation (section 8), but it still takes real
-  wall-clock time (roughly 20 to 90 minutes, and longer when several participants evaluate at once), and you
+  wall-clock time (roughly 90 minutes on average, and longer when several participants evaluate at once), and you
   can only have one method in flight. So you cannot pipeline; factor the wait into your session (it is a good
   time to step away).
 - **Watch memory.** 2 H200 GPUs is generous, but large batches or on-policy generation can run out of memory.
