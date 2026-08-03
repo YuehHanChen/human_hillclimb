@@ -71,7 +71,9 @@ def cmd_budget(_):
     st, r = _call("GET", "/budget")
     if st == 200:
         print("active_hours   : %.3f" % r.get("active_hours", 0))
-        print("remaining_hours: %.3f  (of 12h)" % r.get("remaining_hours", 0))
+        print("remaining_hours: %.3f  (of %sh)" % (r.get("remaining_hours", 0), r.get("active_budget_h", 6)))
+        print("methods        : %s used / %s max  (%s remaining)" % (
+            r.get("methods_used", 0), r.get("max_methods", 5), r.get("methods_remaining", "?")))
     else:
         print("ERROR %s: %s" % (st, r.get("detail") or r))
 
@@ -157,7 +159,7 @@ def cmd_submit(args):
         if phase != last:
             print("  [%s] %s" % (time.strftime("%H:%M:%S"), phase))
             if phase == "evaluating":
-                print("  >> PAUSE your own timer now: evaluation does not count toward your 12 hours (README section 8).")
+                print("  >> PAUSE your own timer now: evaluation does not count toward your 6 hours (README section 8).")
             last = phase
         if phase in ("done", "train_failed", "eval_failed", "rejected", "cancelled"):
             print("=== %s ===" % phase.upper())

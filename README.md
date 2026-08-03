@@ -55,8 +55,8 @@ the practical how-to. Jump to any section:
 <a id="critical-rules"></a>
 ## ⚠️ Critical rules (read these first; full details in the sections noted)
 
-1. **You track your own time (honor system): 12 hours of active work.** Pause your own timer the moment you
-   see the `evaluating` status, because evaluation time does not count against your 12 hours. (Section 8)
+1. **You track your own time (honor system): 6 hours of active work.** Pause your own timer the moment you
+   see the `evaluating` status, because evaluation time does not count against your 6 hours. (Section 8)
 2. **One method at a time, but no limit on how many** methods you try. (Section 8)
 3. **Train only your assigned model** (the system enforces this), and **every submission needs a `run.py`
    plus a mini-paper**. (Sections 6 and 7)
@@ -298,7 +298,7 @@ When you submit, your `run.py` runs in an isolated GPU sandbox:
   need `python3` for the client. (The `if __name__ == "__main__"` block in the template only checks the
   contract; it does not train, and it will not run on a laptop without a GPU and the ML packages.)
 - Write the model to `config.output_dir`. Large merged models (several GB) are handled for you. There is no
-  per-method time limit; the sandbox stays alive for your 12-hour budget.
+  per-method time limit; the sandbox stays alive for your 6-hour budget.
 - **If your `run.py` raises an error, you get the complete, untruncated Python traceback back** (the full
   standard-error output and stack). It is shown by `aab_client.py status` and `submit`, and in the `traceback`
   field of `/status`. So you can see exactly what went wrong and fix it. A failed training costs only the
@@ -363,15 +363,15 @@ issues and resubmit:
 
 ## 8. The rules (please read carefully)
 
-- **Budget: 12 hours of active time, which you measure yourself (honor system).** Keep your own timer or log
+- **Budget: 6 hours of active time, which you measure yourself (honor system).** Keep your own timer or log
   of the time you spend designing, coding, and training your methods.
   - **Do not count evaluation.** The moment your status shows `evaluating`, **pause your timer and stop
-    working**, because evaluation time does not count against your 12 hours. You have to wait for the result
+    working**, because evaluation time does not count against your 6 hours. You have to wait for the result
     before your next method anyway (one method at a time), so this is a good time to step away.
   - **You decide when to resume.** After your score comes back (`done`), keep your timer paused until you
     choose to get back to work, then restart it. Do the same for any break: pause your timer, and resume it
     when you return.
-  - **Stop when your self-measured active time reaches 12 hours.** That is your budget.
+  - **Stop when your self-measured active time reaches 6 hours.** That is your budget.
   - (The API's `budget` and `resume` endpoints keep an automatic server-side estimate, but it cannot see your
     thinking time, so **your own self-measured time is what counts.** Use your own timer.)
 - **AI coding assistants: Claude Opus 4.8 only, and the core idea must be yours.** You may use an AI assistant
@@ -382,8 +382,10 @@ issues and resubmit:
   so use the assistant for drafting, coding, wording, and boilerplate, but the hypothesis and mechanism behind
   each method have to be your own. Do not ask it to invent methods for you.
 - **One method at a time.** You cannot start a new training while one is still training or evaluating.
-- **No limit on the number of methods, and no per-method time limit.** Spend the 12 hours however works best,
-  whether that is many quick methods or fewer carefully-trained ones.
+- **At most 5 successful methods, and no per-method time limit.** Only methods that train AND evaluate
+  successfully (get scored) count toward the 5 , a failed training, a failed eval, or a cancelled run does
+  NOT count, so fixing a bug and resubmitting is a free retry (it only spends active time). Spend the 6
+  hours however works best, whether that is up to 5 quicker methods or fewer carefully-trained ones.
 - **Fixed target model.** You must improve the model you were assigned; the system enforces it.
 - **No distillation from a larger or stronger model.** Improve the target using the target itself,
   open-source corpora, or data you generate. Do not copy a bigger model's outputs.
@@ -470,14 +472,14 @@ After you submit, you poll `status` (the client does this for you). Each stage r
 ### When to pause your timer and log off
 - **You track your own time** (see section 8). The one hard timing rule: **pause your timer the moment your
   status shows `evaluating`.**
-- Evaluation does not count against your 12 hours, and you cannot start another method while one is in flight,
+- Evaluation does not count against your 6 hours, and you cannot start another method while one is in flight,
   so this is a good time to **step away or log off**. When your score comes back (`done`), keep your timer
   paused until **you** decide to get back to work.
 - Take breaks whenever you like. Just pause your own timer and resume it when you return.
 - The `budget` endpoint is only a rough server-side estimate (it cannot see the time you spend authoring
   between calls). **Your own self-measured time is what counts.** There is a hard backstop, `/submit` returns
-  a 403 "12h active budget exhausted" once the server estimate is used up, but because that estimate
-  under-counts your authoring it will rarely trigger before your true 12 hours, so keep self-tracking.
+  a 403 "6h active budget exhausted" once the server estimate is used up, but because that estimate
+  under-counts your authoring it will rarely trigger before your true 6 hours, so keep self-tracking.
 
 ---
 
@@ -496,7 +498,7 @@ After you submit, you poll `status` (the client does this for you). Each stage r
    - If it is **done**: read the headline, the per-dimension `closed%`, and the gate breakdown.
 5. Run `python3 aab_client.py findings` to review your history. Form a hypothesis and iterate: v2, v3, and so
    on.
-6. **Track your own active time** and pause it during evaluation (section 8). Stop when you reach 12 hours.
+6. **Track your own active time** and pause it during evaluation (section 8). Stop when you reach 6 hours.
    Your best **valid** method is your result.
 
 ---
