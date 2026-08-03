@@ -347,7 +347,8 @@ complete, valid mini-paper.
 must be your own.** Lean on the assistant for drafting, wording, formatting the related work, and boilerplate.
 Do not have it invent the method for you: the study measures *your* research ideas, so the hypothesis and
 mechanism behind each submission have to come from you. Opus 4.8 (`claude-opus-4-8`) is the only assistant
-allowed (see section 8).
+allowed (see section 8). For the purpose of this project we can set you up with a Claude Code account (Opus 4.8)
+to use, so you do not need your own subscription (providing an account is potentially easier than issuing credits).
 
 ### The monitor (what causes a submission to be rejected)
 Every submission is screened by an automated **monitor** before it trains. It checks three things and returns
