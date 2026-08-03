@@ -57,7 +57,7 @@ the practical how-to. Jump to any section:
 
 1. **You track your own time (honor system): 6 hours of active work.** Pause your own timer the moment you
    see the `evaluating` status, because evaluation time does not count against your 6 hours. (Section 8)
-2. **One method at a time, but no limit on how many** methods you try. (Section 8)
+2. **One method at a time, and at most 5 SUCCESSFUL methods** — a rejected, failed, or cancelled run does not count toward the 5. (Section 8)
 3. **Train only your assigned model** (the system enforces this), and **every submission needs a `run.py`
    plus a mini-paper**. (Sections 6 and 7)
 4. **Do not use any benchmark, evaluation, or held-out data, and do not distill from a bigger model.** That
@@ -102,7 +102,7 @@ There is no shortcut that wins this. The scoring is built so that the only way t
 3. Write a short **mini-paper** describing the method (see section 7).
 4. **Submit** both through the API. The system trains your model on a GPU sandbox, runs the full evaluation,
    and returns your scores.
-5. **Read the scores, iterate, and submit again.** Repeat as many times as you can within your budget.
+5. **Read the scores, iterate, and submit again.** Repeat until you use your 6 active hours or land 5 successful methods (whichever comes first).
 
 You never touch the GPUs or the evaluation directly. You submit code and a paper, and you get scores back.
 
@@ -363,8 +363,9 @@ issues and resubmit:
 
 ## 8. The rules (please read carefully)
 
-- **Budget: 6 hours of active time, which you measure yourself (honor system).** Keep your own timer or log
-  of the time you spend designing, coding, and training your methods.
+- **Budget: 6 hours of active time (which you measure yourself, honor system) AND at most 5 successful methods.**
+  Keep your own timer or log of the time you spend designing, coding, and training your methods. Your run ends
+  at whichever limit you hit first (see the method-cap bullet below).
   - **Do not count evaluation.** The moment your status shows `evaluating`, **pause your timer and stop
     working**, because evaluation time does not count against your 6 hours. You have to wait for the result
     before your next method anyway (one method at a time), so this is a good time to step away.
@@ -498,8 +499,8 @@ After you submit, you poll `status` (the client does this for you). Each stage r
    - If it is **done**: read the headline, the per-dimension `closed%`, and the gate breakdown.
 5. Run `python3 aab_client.py findings` to review your history. Form a hypothesis and iterate: v2, v3, and so
    on.
-6. **Track your own active time** and pause it during evaluation (section 8). Stop when you reach 6 hours.
-   Your best **valid** method is your result.
+6. **Track your own active time** and pause it during evaluation (section 8). Stop when you reach 6 hours or
+   5 successful methods (whichever comes first). Your best **valid** method is your result.
 
 ---
 
